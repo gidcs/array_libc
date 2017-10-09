@@ -21,6 +21,17 @@ int print_item(void *item, void *params){
     return 0;
 }
 
+int find_item(void *item, void *params){
+    Item *p = (Item *)item;
+    int *f = (int *)params;
+    if(p->first == *f){
+        printf("(%d, %d) is found with first=%d.\n",
+                p->first, p->second, *f);
+        return 1;
+    }
+    return 0;
+}
+
 int main(int argc, char *argv[]){
     Item temp;
     int i;
@@ -68,6 +79,14 @@ int main(int argc, char *argv[]){
         }
         printf("\n");
     }
+
+    int tmp = 2;
+    __MDEBUG("find item that first=%d\n", tmp);
+    array_do_all(&a1, &find_item, &tmp);
+    array_do_all(&a2, &find_item, &tmp);
+
+    printf("\n");
+    __MDEBUG("free a\n");
     array_free(&a1);
     array_free(&a2);
     return 0;

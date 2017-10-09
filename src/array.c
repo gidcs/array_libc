@@ -4,12 +4,12 @@ int array_malloc(Array *a){
     a->ptr = NULL;
     a->ptr = malloc(a->item_size * a->item_num);
     if(NULL == a->ptr){
-        __ADEBUG("%s(%p) alloc(%d items) failed\n", __func__, 
+        __ADEBUG("%s(%p) alloc(%d items) failed\n", __func__,
                 a, a->item_num);
         return -1;
     }
 
-    __ADEBUG("%s(%p) alloc(%d items) ok ptr(%p)\n", __func__, 
+    __ADEBUG("%s(%p) alloc(%d items) ok ptr(%p)\n", __func__,
             a, a->item_num, a->ptr);
     return 0;
 }
@@ -41,13 +41,13 @@ int array_init(Array *a, int item_size){
     a->item_size = item_size;
     a->item_num = _INITIAL_ITEM_NUM;
     a->index = 0;
-    __ADEBUG("%s(%p) item_size=%d item_num=%d\n", __func__, 
+    __ADEBUG("%s(%p) item_size=%d item_num=%d\n", __func__,
             a, a->item_size, a->item_num);
     return array_malloc(a);
 }
 
 int array_size(Array *a){
-   return a->index; 
+   return a->index;
 }
 
 void *array_get(Array *a, int index){
@@ -55,7 +55,7 @@ void *array_get(Array *a, int index){
         __ADEBUG("%s(%p) wrong index(%d)!\n", __func__, a, index);
         return NULL;
     }
-    
+
     __ADEBUG("%s(%p) get index %d\n", __func__, a, index);
     return a->ptr + (a->item_size * index);
 }
@@ -80,6 +80,7 @@ int array_push(Array *a, void *item){
 void array_free(Array *a){
     a->item_size = 0;
     free(a->ptr);
+    __ADEBUG("%s(%p) free %p\n", __func__, a, a->ptr);
     a->ptr = NULL;
 }
 
